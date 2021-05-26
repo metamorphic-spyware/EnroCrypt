@@ -2,7 +2,7 @@
 This is a Python Module For Encryption, Hashing And Other Basic Stuff You Need, With Secure Encryption And Strong Salted Hashing You Can Do Whatever You Want To  
 ## Installation
 EnroCrypt Is Avaliable On <a style="text-decoration:none;" herf="https://pypi.org/projects/enrocrypt">PyPi </a>You Can Install It As Follows:<br>
-```$ pip -m install enrocrypt```
+```$ pip install -U enrocrypt```
 ## Manual Installation 
 If For Some Reason You Can't Install EnroCrypt From PyPi You Can Download It Manually Too:
 * Clone This Repo 
@@ -14,6 +14,7 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
 ## Features
 * Strong Encryption
 * Strong Salted Hashing
+* File Encryption-Decryption
 * Some Basic Functions
 ## Usage 
 ```python
