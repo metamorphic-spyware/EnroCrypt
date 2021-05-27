@@ -1,5 +1,5 @@
 def seperator(data: str):
-    '''Takes A String And Returns A List. List Will Have The Seperated Value of The String Provided '''
-    # a = str(data)
-    listString = list(a)
+    '''Takes a String and Returns a List of the Characters. All Elements of the List are str. The List is Iterable.'''
+    strData = str(data) # To avoid errors
+    listString = list(strData)
     return listString
