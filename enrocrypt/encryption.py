@@ -1,38 +1,34 @@
 from enrocrypt.error import *
+import base64
+from cryptography.fernet import Fernet
 
 def _Keyencryption(key:bytes):
-    import base64
     bases = base64.standard_b64encode(key)
     baseu = base64.urlsafe_b64encode(bases)
     return baseu
 
 def _Keydecryption(key:bytes):
-    import base64
     bases = base64.standard_b64decode(key)
     baseu = base64.urlsafe_b64decode(bases)
     return baseu
 
 def _dataencryption(data:bytes):
-    import base64
     bases = base64.standard_b64encode(data)
     baseu = base64.urlsafe_b64encode(bases)
     return baseu
 
 def _datadecryption(data:bytes):
-    import base64
     baseu = base64.urlsafe_b64decode(data)
     bases = base64.standard_b64decode(baseu)
     return bases
 
 def _BaseEncryption(text:bytes):
-    from cryptography.fernet import Fernet
     key = Fernet.generate_key()
     f = Fernet(key)
     e = f.encrypt(text)
     return [key,e]
 
 def _BaseDecryption(key:bytes,text:bytes):
-    from cryptography.fernet import Fernet
     f = Fernet(key)
     e = f.decrypt(text)
     return e
