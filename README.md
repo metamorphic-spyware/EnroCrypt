@@ -28,3 +28,5 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
     print(original_value)
 ```
 There Is Also a `Decrypt`Function, But In This Function You Have To Enter The Key And The Data Seperatly
+
+(See Discussion For More Info)
