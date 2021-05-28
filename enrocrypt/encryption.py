@@ -1,30 +1,36 @@
 from enrocrypt.error import *
+
 def _Keyencryption(key:bytes):
     import base64
     bases = base64.standard_b64encode(key)
     baseu = base64.urlsafe_b64encode(bases)
     return baseu
+
 def _Keydecryption(key:bytes):
     import base64
     bases = base64.standard_b64decode(key)
     baseu = base64.urlsafe_b64decode(bases)
     return baseu
+
 def _dataencryption(data:bytes):
     import base64
     bases = base64.standard_b64encode(data)
     baseu = base64.urlsafe_b64encode(bases)
     return baseu
+
 def _datadecryption(data:bytes):
     import base64
     baseu = base64.urlsafe_b64decode(data)
     bases = base64.standard_b64decode(baseu)
     return bases
+
 def _BaseEncryption(text:bytes):
     from cryptography.fernet import Fernet
     key = Fernet.generate_key()
     f = Fernet(key)
     e = f.encrypt(text)
     return [key,e]
+
 def _BaseDecryption(key:bytes,text:bytes):
     from cryptography.fernet import Fernet
     f = Fernet(key)
@@ -38,11 +44,13 @@ def Encrypt(Data:bytes):
     final = []
     final.append('Key →');final.append(e_key);final.append('Encrypted Data →');final.append(e_data)
     return final
+
 def Decrypt(Key:bytes,Encrypted_Data:bytes):
     d_key = _Keydecryption(Key)      
     d_data = _datadecryption(Encrypted_Data)
     based = _BaseDecryption(d_key,d_data)
     return based
+
 def Decrypt_List(Data:list):
     '''Takes The List Returned By Encrypt Function "AS IS" Without Modification'''
     if 'Key →' and 'Encrypted Data →' not in Data:
@@ -55,6 +63,7 @@ def Decrypt_List(Data:list):
     d_data = _datadecryption(e_Data)
     based = _BaseDecryption(d_key,d_data)
     return based
+
 def FileEncryption(Path:str,KeyFilePath:str):
     '''Make Sure The Path You Give Has "\\" insted of just "\". KeyFilePath Takes the path where you have to keep the key for the encrypted file, Path Takes the path of the file which has to be encrypted
     Note: You Can Use The Key File To Store Multiple Keys But The Keys Must Not Be of The Same File Else You Will Get A Invalid Key Error'''
@@ -73,6 +82,7 @@ def FileEncryption(Path:str,KeyFilePath:str):
         if KeyFilePath is None:
             NoKeyFile()
     file1.close()
+    
 def FileDecryption(Path:str,KeyFilePath:str):
     '''Path: The Path Of The Encrypted File
     KeyFilePath: Path Of That key File Where The Decryption Key Is Stored For The File '''
