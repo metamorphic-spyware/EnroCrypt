@@ -45,6 +45,6 @@
 #### We Need All This Data Just Because It Is Easy To Add The Thing In Docs Or Take Suitable Actions, It Also Helps Us To Organize Thing In A Better Way.
 ## How To Contribute?
 #### Code:
-Fork This Repo And Make Changes In The Fork After That Create a Pull Request With A Description Of What You Updated Or Added And Hwo It Is Beneficial.
+##### Fork This Repo And Make Changes In The Fork After That Create a Pull Request With A Description Of What You Updated Or Added And How It Is Beneficial.
 #### No-Code:
-Create A Issue (See No-Code Rules) And Explain The Issue 
+##### Create A Issue (See No-Code Rules) And Explain The Issue 
