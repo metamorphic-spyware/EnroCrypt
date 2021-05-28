@@ -1,11 +1,12 @@
-class Error():
-    def ModifiedError():
-        raise ValueError('The List Provided To The Function Is Modified')
-    def ListIndexError():
-        raise IndexError('Returned List Must Only Have 4 Elements')
-    def NoKeyFile():
-        raise ValueError('No Path For The Key File was Provided')
-    def WrongKey():
-        from cryptography.fernet import InvalidToken
-        raise InvalidToken('The Key Provided Is Not Correct')
-
+class ModifiedError(Exception):
+    def __init__(self):
+        self.msg = 'The List Provided To The Function Is Modified'
+        super().__init__(self.msg)
+class ListIndexError(Exception):
+    def __init__(self):
+        self.msg = 'Returned List Must Only Have 4 Elements'
+        super().__init__(self.msg)
+class NoKeyFile(Exception):
+    def __init__(self):
+        self.msg = 'No Path For The Key File was Provided'
+        super().__init__(self.msg)

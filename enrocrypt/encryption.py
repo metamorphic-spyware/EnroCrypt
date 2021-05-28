@@ -1,4 +1,4 @@
-from enrocrypt.error import Error
+from enrocrypt.error import *
 def _Keyencryption(key:bytes):
     import base64
     bases = base64.standard_b64encode(key)
@@ -46,9 +46,9 @@ def Decrypt(Key:bytes,Encrypted_Data:bytes):
 def Decrypt_List(Data:list):
     '''Takes The List Returned By Encrypt Function "AS IS" Without Modification'''
     if 'Key →' and 'Encrypted Data →' not in Data:
-        Error.ModifiedError()
+        ModifiedError()
     if len(Data) != 4:
-        Error.ListIndexError()
+        ListIndexError()
     Key = Data[1]
     e_Data = Data[3]
     d_key = _Keydecryption(Key)      
@@ -57,7 +57,7 @@ def Decrypt_List(Data:list):
     return based
 def FileEncryption(Path:str,KeyFilePath:str):
     '''Make Sure The Path You Give Has "\\" insted of just "\". KeyFilePath Takes the path where you have to keep the key for the encrypted file, Path Takes the path of the file which has to be encrypted
-    Note: You Can Use The Key File To Store Multiple Keys But The Keys Must Not Be of The Same File Else You Will Get A Wrong Key Error'''
+    Note: You Can Use The Key File To Store Multiple Keys But The Keys Must Not Be of The Same File Else You Will Get A Invalid Key Error'''
     file1 = open(Path,'r')
     data = (file1.read()).encode()
     with open(Path,'w') as file:
@@ -71,7 +71,7 @@ def FileEncryption(Path:str,KeyFilePath:str):
                 keyf.write(key)
                 keyf.write('\n')
         if KeyFilePath is None:
-            Error.NoKeyFile()
+            NoKeyFile()
     file1.close()
 def FileDecryption(Path:str,KeyFilePath:str):
     '''Path: The Path Of The Encrypted File
@@ -93,4 +93,4 @@ def FileDecryption(Path:str,KeyFilePath:str):
         file2.write(n_data)
 
     if KeyFilePath is None:
-        Error.NoKeyFile()
+        NoKeyFile()
