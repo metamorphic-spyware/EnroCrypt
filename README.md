@@ -1,6 +1,6 @@
 # EnroCrypt
 This is a Python Module For Encryption, Hashing And Other Basic Stuff You Need, With Secure Encryption And Strong Salted Hashing You Can Do Whatever You Want To <br> 
-[![Downloads](https://pepy.tech/badge/enrocrypt)](https://pepy.tech/project/enrocrypt) 
+[![Downloads](https://static.pepy.tech/personalized-badge/enrocrypt?period=total&units=international_system&left_color=yellow&right_color=red&left_text=Downloads)](https://pepy.tech/project/enrocrypt)
 ## Installation
 EnroCrypt Is Avaliable On <a style="text-decoration:none;" herf="https://pypi.org/projects/enrocrypt">PyPi </a>You Can Install It As Follows:<br>
 ```` pip install -U enrocrypt````
