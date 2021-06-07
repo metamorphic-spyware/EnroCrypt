@@ -22,7 +22,7 @@ import enrocrypt
 encrypted_value = enrocrypt.encryption.Encrypt('secret')
 print(encrypted_value)
 ```
-Warning: The List Returned Must Not Be Modified!
+Warning: The List Returned Must Not Be Modified! <br>
 Note: The Keys Are For One-Time-Use And Cannot Be Used Again and Again
 #### Data Must Be In Bytes Format And The Value Returned Will Be A List
 ### FileEncryption
@@ -30,7 +30,7 @@ Note: The Keys Are For One-Time-Use And Cannot Be Used Again and Again
 import enrocrypt
 enrocrypt.encryption.FileEncryption("C://User//whatever//test.txt","keyFile.key")
 ```
-Note: The Only Way To Decrypt The File Is By Using The Key Provided. DONT LOSE THE KEY!!!
+Note: The Only Way To Decrypt The File Is By Using The Key Provided. DONT LOSE THE KEY!!! <br>
 Note: The Key File Can Contain Many Keys But 2 Keys For The Same File Is Not Allowed
 ### Decrypt
 ```python
