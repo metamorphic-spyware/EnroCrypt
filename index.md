@@ -30,8 +30,3 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
 There Is Also a `Decrypt`Function, But In This Function You Have To Enter The Key And The Data Seperatly
 
 (See Discussion For More Info)
-
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
