@@ -1,36 +1,36 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/Morgan-Phoenix/EnroCrypt/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+# EnroCrypt
+This is a Python Module For Encryption, Hashing And Other Basic Stuff You Need, With Secure Encryption And Strong Salted Hashing You Can Do Whatever You Want To <br> 
+[![Downloads](https://static.pepy.tech/personalized-badge/enrocrypt?period=total&units=international_system&left_color=yellow&right_color=red&left_text=Downloads)](https://pepy.tech/project/enrocrypt)
+## Installation
+EnroCrypt Is Avaliable On <a style="text-decoration:none;" herf="https://pypi.org/projects/enrocrypt">PyPi </a>You Can Install It As Follows:<br>
+```` pip install -U enrocrypt````
+## Manual Installation 
+If For Some Reason You Can't Install EnroCrypt From PyPi You Can Download It Manually Too:
+* Clone This Repo 
+* Cut-Paste This Repo In Your Python Scripts Path
+* Enter In The Folder Where You See "setup.py" file
+* shift+right click in the Folder And Click On "Open Powershell window Here"
+* Type `python setup.py install`<br>
+After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCrypt Is Installed, Now You Can Import It Right Away
+## Features
+* Strong Encryption
+* Strong Salted Hashing
+* File Encryption-Decryption
+* Some Basic Functions
+## Usage 
+```python
+    # For Encryption
+    import enrocrypt
+    value = enrocrypt.encryption.Encrypt(b'text')
+    print(value)
+    # For Decryption
+    original_value = enrocrypt.encryption.DecryptList(value)
+    print(original_value)
 ```
+There Is Also a `Decrypt`Function, But In This Function You Have To Enter The Key And The Data Seperatly
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+(See Discussion For More Info)
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Morgan-Phoenix/EnroCrypt/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
 ### Support or Contact
 
