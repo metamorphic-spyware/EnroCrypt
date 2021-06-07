@@ -10,3 +10,7 @@ class NoKeyFile(Exception):
     def __init__(self):
         self.msg = 'No Path For The Key File was Provided'
         super().__init__(self.msg)
+class List(Exception):
+ def __init__(self, *args: object):
+     self.msg = "Must Be A List"
+     super().__init__(self.msg)
