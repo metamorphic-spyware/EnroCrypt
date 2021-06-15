@@ -1,7 +1,8 @@
 from enrocrypt.error import *
+from enrocrypt.basic import Password_Creator
 import base64
 from cryptography.fernet import Fernet
-
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 def _Keyencryption(key:bytes):
     bases = base64.standard_b64encode(key)
     baseu = base64.urlsafe_b64encode(bases)
@@ -100,3 +101,31 @@ def FileDecryption(Path:str,KeyFilePath:str):
 
     if KeyFilePath is None:
         NoKeyFile()
+def  _Base_Auth_Encryption(data:bytes,optd:bytes = None):
+    password = Password_Creator()
+    key = ChaCha20Poly1305.generate_key()
+    encryptor = ChaCha20Poly1305(key)
+    ed = encryptor.encrypt(password,data,optd)
+    print([key,password,ed])
+    return [key,password,ed]
+
+def Auth_Encryption(data:bytes,optd:bytes = None):
+    '''You Can't Choose Your Passwords For Security Reasons.
+    data: The Data You Wnat To Encrypt.
+    optd: Optional Data You Wnat To Give.
+    We Recommend You Give The optd.'''
+    basee = _Base_Auth_Encryption(data,optd)
+    key = _Keyencryption(basee[0])
+    password = _Keyencryption(basee[1])
+    encd = _dataencryption(basee[2])
+    final = []
+    final.append('Key →');final.append(key);final.append('Password →');final.append(password);final.append('Encrypted Data →');final.append(encd);final.append('Optional Data →');final.append(optd)
+    return final
+def Auth_Decryption(key:bytes,password:bytes,data:bytes,optd:bytes = None):
+    Key = _Keydecryption(key)
+    Password = _Keydecryption(password)
+    Data = _datadecryption(data)
+    decryptor = ChaCha20Poly1305(Key)
+    value = decryptor.decrypt(Password,Data,optd)
+    return value
+    

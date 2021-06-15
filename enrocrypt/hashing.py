@@ -1,8 +1,9 @@
 from enrocrypt.basic import seperator
-
+import hashlib, base64, uuid
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends.interfaces import HashBackend
 def Standard_Multi_Hash(Data:str):
     '''Inreversable Salted Hash Function Don't Use If U Want To Get The Content Back'''
-    import hashlib, base64
     a = hashlib.sha256(); a.update(bytes(Data.encode())); b = []
     base = hashlib.sha512()
     md = hashlib.md5()
@@ -20,45 +21,40 @@ def Standard_Multi_Hash(Data:str):
         e.append(''.join(d))
         return(bytes(str(e[0]).encode()))
 
-def _Salt(data:bytes):
-    data_list = seperator(data)
-    salt = ['xd\\','bb\\','xdd\\','0eh\\','9a\\','0fnb\\','s5g\\','d8r\\','0fg\\','m4f\\']
-    for i in data_list:
-        try:
-            data_list.pop(len(i))
-        except:
-            data_list[0] = data_list[1]
-    for i in salt:
-        data_list.insert(len(i),i)
-    data = ''.join(data_list)
-    return data
-
-def Standard_SHA256(data:str):
-    import hashlib
+def _Salt(data):
+    salt = []
+    salt.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+    salt.append(str(data).split("'")[1])
+    salt.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+    return bytes(''.join(salt).encode())
+    
+def SHA256(data:str):
     sha = hashlib.sha256(bytes(data.encode()))
-    hash = str(sha.digest())
+    hash = sha.digest()
     return _Salt(hash)
 
-def Standard_SHA512(data:str):
-    import hashlib
+def SHA512(data:str):
     sha = hashlib.sha512(bytes(data.encode()))
     hash = str(sha.digest())
     return _Salt(hash)
 
-def Standard_SHA244(data:str):
-    import hashlib
+def SHA244(data:str):
     sha = hashlib.sha224(bytes(data.encode()))
     hash = str(sha.digest())
     return _Salt(hash)
 
-def Standard_MD5(data:str):
-    import hashlib
+def MD5(data:str):
     sha = hashlib.md5(bytes(data.encode()))
     hash = str(sha.digest())
     return _Salt(hash)
 
-def Standard_SHA384(data:str):
-    import hashlib
+def SHA384(data:str):
     sha = hashlib.sha384(bytes(data.encode()))
     hash = str(sha.digest())
     return _Salt(hash)
+
+def BLAKE2(data:bytes):
+    a = hashes.Hash(hashes.BLAKE2s(32))
+    a.update(data)
+    return _Salt(a.finalize())
+    

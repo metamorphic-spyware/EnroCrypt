@@ -1,4 +1,5 @@
 from enrocrypt import error
+import uuid, os
 def seperator(data: str):
     '''Takes a String and Returns a List of the Characters. All Elements of the List are str. The List is Iterable.'''
     strData = str(data) # To avoid errors
@@ -43,3 +44,10 @@ def to_str(data):
     for i,_ in enumerate(in_ascii):
         in_str.append(chr(in_ascii[i]))
     return(in_str)
+
+def Sign(sign:str):
+    '''A Hint Of Upcomming Updates'''
+    return uuid.uuid5(uuid.uuid4(),sign)
+def Password_Creator():
+    '''This Password Generator Is For The Function Auth_Encryption. NOT for Generating Account Passwords'''
+    return os.urandom(12)
