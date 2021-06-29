@@ -113,16 +113,27 @@ class Encryption():
         ed = encryptor.encrypt(password,data,optd)
         print([key,password,ed])
         return [key,password,ed]
-
+    def __Base_AESCCM(self,data:bytes,optd:bytes = None):
+        password = Password_Creator()
+        key = AESCCM.generate_key(256)
+        encryptor = AESCCM(key)
+        ed = encryptor.encrypt(password,data,optd)
+        return [key,password,ed]
+    def __Base_AESGCM(self,data:bytes,optd:bytes = None):
+        password = Password_Creator()
+        key = AESGCM.generate_key(256)
+        encryptor = AESGCM(key)
+        ed = encryptor.encrypt(password,data,optd)
+        return [key,password,ed]
     def Auth_Encryption(self,data:bytes,optd:bytes = None):
         '''You Can't Choose Your Passwords For Security Reasons.
         data: The Data You Wnat To Encrypt.
         optd: Optional Data You Wnat To Give.
         We Recommend You Give The optd.'''
         basee = self.__Base_Auth_Encryption(data,optd)
-        key = self.__Keyencryption(basee[0])
-        password = self.__Keyencryption(basee[1])
-        encd = self.__dataencryption(basee[2])
+        key = self.__Keyencryption(basee[0]) #password
+        password = self.__Keyencryption(basee[1]) #key
+        encd = self.__dataencryption(basee[2]) #data
         final = []
         final.append('Key →');final.append(key);final.append('Password →');final.append(password);final.append('Encrypted Data →');final.append(encd);final.append('Optional Data →');final.append(optd)
         return final
@@ -133,4 +144,34 @@ class Encryption():
         decryptor = ChaCha20Poly1305(Key)
         value = decryptor.decrypt(Password,Data,optd)
         return value
-    
+    def AESCCM(self,data:bytes,optd:bytes = None):
+        basee = self.__Base_AESCCM(data,optd)
+        key = self.__Keyencryption(basee[0])
+        password = self.__Keyencryption(basee[1])
+        encd = self.__dataencryption(basee[2])
+        final = []
+        final.append('Key →');final.append(key);final.append('Password →');final.append(password);final.append('Encrypted Data →');final.append(encd);final.append('Optional Data →');final.append(optd)
+        return final
+    def AESCCM_Decryption(self,key:bytes,password:bytes,data:bytes,optd:bytes = None):
+        Key = self.__Keydecryption(key)
+        Password = self.__Keydecryption(password)
+        Data = self.__datadecryption(data)
+        decryptor = AESCCM(Key)
+        value = decryptor.decrypt(Password,Data,optd)
+        return value
+    def AESGCM(self,data:bytes,optd:bytes = None):
+        basee = self.__Base_AESGCM(data,optd)
+        key = self.__Keyencryption(basee[0])
+        password = self.__Keyencryption(basee[1])
+        encd = self.__dataencryption(basee[2])
+        final = []
+        final.append('Key →');final.append(key);final.append('Password →');final.append(password);final.append('Encrypted Data →');final.append(encd);final.append('Optional Data →');final.append(optd)
+        return final
+    def AESGCM_Decryption(self,key:bytes,password:bytes,data:bytes,optd:bytes = None):
+        Key = self.__Keydecryption(key)
+        Password = self.__Keydecryption(password)
+        Data = self.__datadecryption(data)
+        decryptor = AESGCM(Key)
+        value = decryptor.decrypt(Password,Data,optd)
+        return value
+        

@@ -1,7 +1,7 @@
 from typing import Any
-from hashing import Hashing
-from encryption import Encryption
-from basic import Basic
+from enrocrypt.hashing import Hashing
+from enrocrypt.encryption import Encryption
+from enrocrypt.basic import Basic
 
 class Core(Hashing,Encryption,Basic):
     '''Given Below Is The Syntax To Set Configurations For This Class. This Must Be Used As Is(Just Change The File Path)
@@ -33,4 +33,3 @@ class Core(Hashing,Encryption,Basic):
         hashing = Hashing()
         hashing(bytes(self.salt.encode()))
         return hashing
-        
