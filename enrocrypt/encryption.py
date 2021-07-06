@@ -1,5 +1,5 @@
 from enrocrypt.error import *
-from enrocrypt.basic import Password_Creator
+from enrocrypt.basic import Basic
 import base64
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
@@ -107,20 +107,20 @@ class Encryption():
         if KeyFilePath is None:
             NoKeyFile()
     def  __Base_Auth_Encryption(self,data:bytes,optd:bytes = None):
-        password = Password_Creator()
+        password = Basic.Password_Creator()
         key = ChaCha20Poly1305.generate_key()
         encryptor = ChaCha20Poly1305(key)
         ed = encryptor.encrypt(password,data,optd)
         print([key,password,ed])
         return [key,password,ed]
     def __Base_AESCCM(self,data:bytes,optd:bytes = None):
-        password = Password_Creator()
+        password = Basic.Password_Creator()
         key = AESCCM.generate_key(256)
         encryptor = AESCCM(key)
         ed = encryptor.encrypt(password,data,optd)
         return [key,password,ed]
     def __Base_AESGCM(self,data:bytes,optd:bytes = None):
-        password = Password_Creator()
+        password = Basic.Password_Creator()
         key = AESGCM.generate_key(256)
         encryptor = AESGCM(key)
         ed = encryptor.encrypt(password,data,optd)
