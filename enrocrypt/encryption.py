@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM, AESCCM
 
 class Encryption():
+    __obj = Basic()
     def __str__(self) -> str:
         return "This Class Contains All The Encryption Functions Of EnroCrypt"
     def __Keyencryption(self,key:bytes):
@@ -66,61 +67,97 @@ class Encryption():
         based = self.__BaseDecryption(d_key,d_data)
         return based
 
-    def FileEncryption(self,Path:str,KeyFilePath:str):
+    def FileEncryption(self,Path:str,KeyFilePath:str,Func = None,opd:str = None):
         '''Make Sure The Path You Give Has "\\" insted of just "\". KeyFilePath Takes the path where you have to keep the key for the encrypted file, Path Takes the path of the file which has to be encrypted
         Note: You Can Use The Key File To Store Multiple Keys But The Keys Must Not Be of The Same File Else You Will Get A Invalid Key Error'''
         file1 = open(Path,'r')
         data = (file1.read()).encode()
-        with open(Path,'w') as file:
-            e_file = self.Encrypt(bytes(data))
-            key = str(e_file[1])
-            e_data = str(e_file[3])
-            file.write(e_data)
-            if KeyFilePath is not None:
-                with open(KeyFilePath,'a') as keyf:
-                    keyf.write(Path+':'+';'+':'+';')
-                    keyf.write(key)
-                    keyf.write('\n')
-            if KeyFilePath is None:
-                NoKeyFile()
-        file1.close()
+        if Func == None:
+            with open(Path,'w') as file:
+                e_file = self.Encrypt(bytes(data))
+                key = str(e_file[1])
+                e_data = str(e_file[3])
+                file.write(e_data)
+                if KeyFilePath is not None:
+                    with open(KeyFilePath,'a') as keyf:
+                        keyf.write(Path+':'+';'+':'+';')
+                        keyf.write(key)
+                        keyf.write('\n')
+                if KeyFilePath is None:
+                    NoKeyFile()
+            file1.close()
+        if Func is not None:
+            with open(Path,'w') as file:
+                if opd is not None:
+                    e_file = Func(bytes(data),bytes(opd.encode()))
+                e_file = Func(bytes(data))
+                key = str(e_file[1])
+                password = str(e_file[3])
+                e_data = str(e_file[5])
+                file.write(e_data)
+                if KeyFilePath is not None:
+                    with open(KeyFilePath,'a') as keyf:
+                        keyf.write(Path+':'+';'+':'+';')
+                        keyf.write(key)
+                        keyf.write(':;:;')
+                        keyf.write(password)
+                        keyf.write('\n')
+                        if opd is not None:
+                            keyf.write(opd)
+                            keyf.write('\n')
+                if KeyFilePath is None:
+                    NoKeyFile()
+            file1.close()
         
-    def FileDecryption(self,Path:str,KeyFilePath:str):
+    def FileDecryption(self,Path:str,KeyFilePath:str,Func = None,opd:str = None):
         '''Path: The Path Of The Encrypted File
         KeyFilePath: Path Of That key File Where The Decryption Key Is Stored For The File '''
         import ast
         file1 = open(Path,'r')
-        if KeyFilePath is not None:
+        if Func == None:
+            if KeyFilePath is not None:
+                with open(KeyFilePath,'r') as keyf:
+                    e_data = ast.literal_eval(file1.read())
+                    alls = keyf.read()
+                    splited =alls.split('\n')
+                    for char,i in enumerate(splited):
+                        a = i.split(':;:;')
+                        if a[char] == Path:
+                            key = ast.literal_eval(a[char+1])
+                            break
+                n_data = str(self.Decrypt(key,e_data).decode())
+                file2 = open(Path,'w')
+                file2.write(n_data)
+        if Func is not None:
             with open(KeyFilePath,'r') as keyf:
-                e_data = ast.literal_eval(file1.read())
                 alls = keyf.read()
                 splited =alls.split('\n')
                 for char,i in enumerate(splited):
                     a = i.split(':;:;')
                     if a[char] == Path:
                         key = ast.literal_eval(a[char+1])
+                        password = ast.literal_eval(a[char+2])
                         break
-            n_data = str(self.Decrypt(key,e_data).decode())
+            n_data = str(Func(key,password,ast.literal_eval(file1.read()),opd).decode())
             file2 = open(Path,'w')
             file2.write(n_data)
-
         if KeyFilePath is None:
             NoKeyFile()
     def  __Base_Auth_Encryption(self,data:bytes,optd:bytes = None):
-        password = Basic.Password_Creator()
+        password = self.__obj.Password_Creator()
         key = ChaCha20Poly1305.generate_key()
         encryptor = ChaCha20Poly1305(key)
         ed = encryptor.encrypt(password,data,optd)
         print([key,password,ed])
         return [key,password,ed]
     def __Base_AESCCM(self,data:bytes,optd:bytes = None):
-        password = Basic.Password_Creator()
+        password = self.__obj.Password_Creator()
         key = AESCCM.generate_key(256)
         encryptor = AESCCM(key)
         ed = encryptor.encrypt(password,data,optd)
         return [key,password,ed]
     def __Base_AESGCM(self,data:bytes,optd:bytes = None):
-        password = Basic.Password_Creator()
+        password = self.__obj.Password_Creator()
         key = AESGCM.generate_key(256)
         encryptor = AESGCM(key)
         ed = encryptor.encrypt(password,data,optd)
@@ -131,9 +168,9 @@ class Encryption():
         optd: Optional Data You Wnat To Give.
         We Recommend You Give The optd.'''
         basee = self.__Base_Auth_Encryption(data,optd)
-        key = self.__Keyencryption(basee[0]) #password
-        password = self.__Keyencryption(basee[1]) #key
-        encd = self.__dataencryption(basee[2]) #data
+        key = self.__Keyencryption(basee[0])
+        password = self.__Keyencryption(basee[1])
+        encd = self.__dataencryption(basee[2])
         final = []
         final.append('Key →');final.append(key);final.append('Password →');final.append(password);final.append('Encrypted Data →');final.append(encd);final.append('Optional Data →');final.append(optd)
         return final
