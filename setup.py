@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 file = open('README.md','r').read()
 setup(
     name="enrocrypt",
-    version="1.1.0",
+    version="1.1.1",
     author="Morgan-Phoenix",
     author_email="mikebrain61@gmail.com",
     description="This is a Python Module For Encryption, Hashing And Other stuff",
