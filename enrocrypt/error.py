@@ -11,6 +11,11 @@ class NoKeyFile(Exception):
         self.msg = 'No Path For The Key File was Provided'
         super().__init__(self.msg)
 class List(Exception):
- def __init__(self, *args: object):
+ def __init__(self):
      self.msg = "Must Be A List"
      super().__init__(self.msg)
+class KeyError(Exception):
+    def __init__(self,bits:int) -> None:
+        self.bits = bits
+        self.msg = f"Key Must Be Of 32, 24 or 16 bits not {self.bits} bits"
+        super().__init__(self.msg)

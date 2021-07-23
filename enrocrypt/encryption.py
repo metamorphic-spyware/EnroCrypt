@@ -29,19 +29,24 @@ class Encryption():
         bases = base64.standard_b64decode(baseu)
         return bases
 
-    def __BaseEncryption(self,text:bytes):
-        key = Fernet.generate_key()
-        f = Fernet(key)
-        e = f.encrypt(text)
-        return [key,e]
+    def __BaseEncryption(self,text:bytes,Key:bytes = None):
+        if Key == None:
+            key = Fernet.generate_key()
+            f = Fernet(key)
+            e = f.encrypt(text)
+            return [key,e]
+        if Key is not None:
+            f = Fernet(Key)
+            e = f.encrypt(text)
+            return [Key,e]
 
     def __BaseDecryption(self,key:bytes,text:bytes):
         f = Fernet(key)
         e = f.decrypt(text)
         return e
 
-    def Encrypt(self,Data:bytes):
-        basee = self.__BaseEncryption(Data)
+    def Encrypt(self,Data:bytes,Key:bytes = None):
+        basee = self.__BaseEncryption(Data,Key=Key)
         e_data = self.__dataencryption(basee[1])
         e_key = self.__Keyencryption(basee[0])
         final = []
@@ -143,31 +148,45 @@ class Encryption():
             file2.write(n_data)
         if KeyFilePath is None:
             NoKeyFile()
-    def  __Base_Auth_Encryption(self,data:bytes,optd:bytes = None):
+    def  __Base_Auth_Encryption(self,data:bytes,optd:bytes = None,Key:bytes = None):
         password = self.__obj.Password_Creator()
-        key = ChaCha20Poly1305.generate_key()
-        encryptor = ChaCha20Poly1305(key)
-        ed = encryptor.encrypt(password,data,optd)
-        print([key,password,ed])
-        return [key,password,ed]
-    def __Base_AESCCM(self,data:bytes,optd:bytes = None):
+        if Key == None:
+            key = ChaCha20Poly1305.generate_key()
+            encryptor = ChaCha20Poly1305(key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [key,password,ed]
+        if Key is not None:
+            encryptor = ChaCha20Poly1305(Key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [Key,password,ed]
+    def __Base_AESCCM(self,data:bytes,optd:bytes = None,Key:bytes = None):
         password = self.__obj.Password_Creator()
-        key = AESCCM.generate_key(256)
-        encryptor = AESCCM(key)
-        ed = encryptor.encrypt(password,data,optd)
-        return [key,password,ed]
-    def __Base_AESGCM(self,data:bytes,optd:bytes = None):
+        if Key == None:
+            key = AESCCM.generate_key(256)
+            encryptor = AESCCM(key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [key,password,ed]
+        if Key is not None:
+            encryptor = AESCCM(Key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [Key,password,ed]
+    def __Base_AESGCM(self,data:bytes,optd:bytes = None,Key:bytes = None):
         password = self.__obj.Password_Creator()
-        key = AESGCM.generate_key(256)
-        encryptor = AESGCM(key)
-        ed = encryptor.encrypt(password,data,optd)
-        return [key,password,ed]
-    def Auth_Encryption(self,data:bytes,optd:bytes = None):
+        if Key == None:
+            key = AESGCM.generate_key(256)
+            encryptor = AESGCM(key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [key,password,ed]
+        if Key is not None:
+            encryptor = AESGCM(Key)
+            ed = encryptor.encrypt(password,data,optd)
+            return [Key,password,ed]
+    def Auth_Encryption(self,data:bytes,optd:bytes = None,Key:bytes = None):
         '''You Can't Choose Your Passwords For Security Reasons.
         data: The Data You Wnat To Encrypt.
         optd: Optional Data You Wnat To Give.
         We Recommend You Give The optd.'''
-        basee = self.__Base_Auth_Encryption(data,optd)
+        basee = self.__Base_Auth_Encryption(data,optd,Key=Key)
         key = self.__Keyencryption(basee[0])
         password = self.__Keyencryption(basee[1])
         encd = self.__dataencryption(basee[2])
@@ -181,8 +200,8 @@ class Encryption():
         decryptor = ChaCha20Poly1305(Key)
         value = decryptor.decrypt(Password,Data,optd)
         return value
-    def AESCCM(self,data:bytes,optd:bytes = None):
-        basee = self.__Base_AESCCM(data,optd)
+    def AESCCM(self,data:bytes,optd:bytes = None,Key:bytes = None):
+        basee = self.__Base_AESCCM(data,optd,Key=Key)
         key = self.__Keyencryption(basee[0])
         password = self.__Keyencryption(basee[1])
         encd = self.__dataencryption(basee[2])
@@ -196,8 +215,8 @@ class Encryption():
         decryptor = AESCCM(Key)
         value = decryptor.decrypt(Password,Data,optd)
         return value
-    def AESGCM(self,data:bytes,optd:bytes = None):
-        basee = self.__Base_AESGCM(data,optd)
+    def AESGCM(self,data:bytes,optd:bytes = None,Key:bytes = None):
+        basee = self.__Base_AESGCM(data,optd,Key=Key)
         key = self.__Keyencryption(basee[0])
         password = self.__Keyencryption(basee[1])
         encd = self.__dataencryption(basee[2])
