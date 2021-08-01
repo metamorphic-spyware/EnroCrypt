@@ -20,11 +20,11 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
 ## Usage 
 ```python
     # For Encryption
-    import enrocrypt
-    value = enrocrypt.encryption.Encrypt(b'text')
+    from enrocrypt import core
+    value = core.Encrypt(b'text')
     print(value)
     # For Decryption
-    original_value = enrocrypt.encryption.DecryptList(value)
+    original_value = core.DecryptList(value)
     print(original_value)
 ```
 There Is Also a `Decrypt`Function, But In This Function You Have To Enter The Key And The Data Seperatly
