@@ -13,7 +13,7 @@ class Core(Hashing,Encryption,Basic):
     }'''
     def __init__(self) -> None:
         self.salt = ''
-    def __call__(self,*args: Any):
+    def set_config(self,*args: Any):
         configs = (args[0]['configs']['salt_file'])
         value = self.__Set_Salt(configs)
         return value

@@ -1,6 +1,6 @@
 import hashlib, base64, uuid
 from cryptography.hazmat.primitives import hashes
-from typing import Any
+from typing import Any, final
 class Hashing():
     def __init__(self) -> None:
         self.salt = None
@@ -26,7 +26,8 @@ class Hashing():
             try: d.append(c[i+1])
             except: d.append(c[0])
             e.append(''.join(d))
-            return(bytes(str(e[0]).encode()))
+            final = self.BLAKE2(bytes(str(e[0]).encode()))
+            return(final)
 
     def __Salt(self,data,salt:bytes = None):
         if not salt:
