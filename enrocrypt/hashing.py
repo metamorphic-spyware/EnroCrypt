@@ -1,4 +1,4 @@
-import hashlib, base64, uuid
+import hashlib, base64, uuid, passlib
 from cryptography.hazmat.primitives import hashes
 from typing import Any, final
 class Hashing():
