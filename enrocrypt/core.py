@@ -14,6 +14,7 @@ class Core(Hashing,Encryption,Basic):
     def __init__(self) -> None:
         self.salt = ''
     def set_config(self,*args: Any):
+        '''Sets The Configuration For This Class And All Other Classes'''
         configs = (args[0]['configs']['salt_file'])
         value = self.__Set_Salt(configs)
         return value
@@ -30,6 +31,7 @@ class Core(Hashing,Encryption,Basic):
         else:
             return False
     def get_hash_object(self):
+        '''Returns A Hashing Class Object That Is Pre-Configured To Use Custom Salt If Any'''
         hashing = Hashing()
         hashing(bytes(self.salt.encode()))
         return hashing
