@@ -30,7 +30,7 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
 ```
 There Is Also a `Decrypt`Function, But In This Function You Have To Enter The Key And The Data Seperatly
 ## Adding Configurations
-Enrocrypt Has The Ablity To Adopt Custom Configurations, Namely:- Custom Salt
+Enrocrypt Has The Ablity To Adopt Custom Configurations, Namely:- Custom Salt <br>
 We Provide A Function In Which You Can Pass All The Configurations But It Also Has A Syntax And Must Be Used "As is"
 ```python
 from enrocrypt import core
