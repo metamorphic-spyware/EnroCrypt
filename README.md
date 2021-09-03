@@ -21,7 +21,7 @@ After Following All The Steps Mentioned Above (If You Don't Get An Error) EnroCr
 ```python
     # For Encryption
     from enrocrypt import core
-    obj = core()
+    obj = core.Core()
     value = obj.Encrypt(b'text')
     print(value)
     # For Decryption
@@ -40,7 +40,15 @@ config = {
         }
     }
     # You need a Core Class Object to access that function
-    obj = core()
+    obj = core.Core()
     obj.set_config(config)
+```
+## Getting A Hashing Class Object
+We Suggest Not To Use The Hashing Class By Importing It Directly As If You Do So You Can't Add Your Custom Salt <br>
+To Add Custom Salt Follow The `Adding Configuration`. After You Did That You Have To Get A Hasing Class Object By A Core Class Function<br>
+```python
+from enrocrypt import core
+obj = core.Core()
+hasing_obj = obj.get_hash_object()
 ```
 (See Discussion For More Info)
