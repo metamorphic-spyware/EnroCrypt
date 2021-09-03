@@ -10,7 +10,7 @@ name: Codacy Security Scan
 
 on:
   push:
-    branches: [ main, passlib_addition]
+    branches: [ main, passlib_addition, fixes]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ main ]
