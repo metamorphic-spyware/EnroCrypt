@@ -4,7 +4,6 @@ setup(
     name="enrocrypt",
     version="1.1.3",
     author="Morgan-Phoenix",
-    author_email="mikebrain61@gmail.com",
     description="This is a Python Module For Encryption, Hashing And Other stuff",
     long_description=file,
     long_description_content_type="text/markdown",
@@ -18,6 +17,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=find_packages(),
-    install_requires=['cryptography'],
+    install_requires=['cryptography', 'passlib'],
     python_requires=">=3.6",
 )
