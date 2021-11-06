@@ -1,12 +1,12 @@
-import hashlib, base64, uuid, passlib
+import hashlib, base64, uuid
 from cryptography.hazmat.primitives import hashes
-from typing import Any, final
+from typing import Any
 class Hashing():
-    def __init__(self) -> None:
+    def __init__(self):
         self.salt = None
     def __call__(self, *args:Any):
         self.salt = args[0]
-    def __str__(self) -> str:
+    def __str__(self):
         return "Hashing Funcitions In Here"
 
     def Standard_Multi_Hash(self,Data:str):
@@ -66,11 +66,6 @@ class Hashing():
         hash = str(sha.digest())
         return self.__Salt(hash,salt=self.salt)
 
-    def MD5(self,data:str):
-        sha = hashlib.md5(bytes(data.encode()))
-        hash = str(sha.digest())
-        return self.__Salt(hash,salt=self.salt)
-
     def SHA384(self,data:str):
         sha = hashlib.sha384(bytes(data.encode()))
         hash = str(sha.digest())
@@ -81,3 +76,5 @@ class Hashing():
         a.update(data)
         return self.__Salt(a.finalize(),salt=self.salt)
         
+obj = Hashing()
+print(obj.PBKDF2_SHA256())
