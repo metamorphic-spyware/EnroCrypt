@@ -1,7 +1,6 @@
 from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from enrocrypt.hashing import Hashing
-from enrocrypt.encryption import Encryption
 from enrocrypt.error import KeyError
 
 def generate_key(words:str,salt:bytes,bits:int = 32):
