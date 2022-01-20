@@ -61,12 +61,7 @@ class Hashing():
         sha = hashlib.sha224(bytes(data.encode()))
         Hash = str(sha.digest())
         return self.__Salt(Hash,salt=self.salt)
-
-    def MD5(self,data:str):
-        sha = hashlib.md5(bytes(data.encode()))
-        Hash = str(sha.digest())
-        return self.__Salt(Hash,salt=self.salt)
-
+      
     def SHA384(self,data:str):
         sha = hashlib.sha384(bytes(data.encode()))
         Hash = str(sha.digest())
