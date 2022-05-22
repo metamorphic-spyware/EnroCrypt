@@ -1,0 +1,73 @@
+                                            BREAKING
+
+pbkdf2-sha256$29000$C8F4r/U.5/yfM2ZszVnr3Q$7obwOw/4aZ.hYnhme9Zxqr4KgPIZ4EhRBnLKR6K9WeY (happiness)
+
+Step -> 1
+
+pbkdf2-sha256$29000$C8F4r
+/
+U.5
+/
+yfM2ZszVnr3Q$7obwOw
+/
+4aZ.hYnhme9Zxqr4KgPIZ4EhRBnLKR6K9WeY
+
+Step -> 2
+
+pbkdf2-sha256                           NO 
+$                                       NO
+29000                                   NO
+$                                       NO
+C8F4r                                   YES
+/                                       NO
+U.5                                     YES
+/                                       NO
+yfM2ZszVnr3Q                            YES
+$                                       NO
+7obwOw                                  YES
+/                                       NO
+4aZ.hYnhme9Zxqr4KgPIZ4EhRBnLKR6K9WeY    YES
+
+
+
+                                        TILL NOW RESULT
+
+                        C8F4rU.5yfM2ZszVnr3Q4aZ.hYnhme9Zxqr4KgPIZ4EhRBnLKR6K9WeY
+
+
+                                        SALTING
+
+will use basic SHA256 to hash some random text and then add it randomly (i.e. in any order)
+to the original text. As everything is hashed it will be very hard to find out the original 
+text and the Salt
+
+                                        BASIC SALT MODLE
+
+            salts = []
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            salts.append(str(data).split("'")[1])
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            salts.append(str(data).split("'")[1])
+            salts.append(str(data).split("'")[1])
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+
+                                        EDITED SALT MODLE (random mode)
+
+            salts = []
+            dataset = [] # len([]) == 7 TRUE
+            count = 0
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            data = str(data).split("/") #len([]) == 4 TRUE
+            for i in data:
+                dataset.append(str(i).split("$"))
+                count+=1
+            dataset.pop(0)
+            dataset.pop(1)
+            for i in range(count):
+                salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+                salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+                salts.append(str(dataset[i]))
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))

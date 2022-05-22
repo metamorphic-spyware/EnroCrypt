@@ -1,9 +1,11 @@
 import hashlib, base64, uuid
+from passlib.handlers.pbkdf2 import pbkdf2_sha256
 from cryptography.hazmat.primitives import hashes
 from typing import Any
 class Hashing():
     def __init__(self):
         self.salt = None
+        self.byt = 512
     def __call__(self, *args:Any):
         self.salt = args[0]
     def __str__(self):
@@ -39,7 +41,10 @@ class Hashing():
             salts.append(str(data).split("'")[1])
             salts.append(str(data).split("'")[1])
             salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
-            return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+            salting = base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+            if len(salting) > self.byt: 
+                salting = salting.decode()[0:self.byt]
+            return salting
         if salt:
             salts = []
             salts.append(str(hashlib.sha256(salt).digest()).split("'")[1])
@@ -49,8 +54,29 @@ class Hashing():
             salts.append(str(data).split("'")[1])
             salts.append(str(data).split("'")[1])
             salts.append(str(hashlib.sha256(salt).digest()).split("'")[1])
-            return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
-        
+            salting2 = base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+            if salting2 > self.byt:
+                salting2 = salting2.decode()[0:self.byt]
+            return salting2
+
+    def __Salt_PBKDF(self,data):
+        salts = []
+        dataset = [] # len([]) == 7 TRUE
+        count = 0
+        salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+        datas = str(data).split("/") #len([]) == 4 TRUE
+        for i in datas:
+            dataset.append(str(i).split("$"))
+            count+=1
+        dataset.pop(0)
+        dataset.pop(1)
+        for i in range(count):
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+            salts.append(str(dataset[i]))
+        salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
+        return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+
     def SHA256(self,data:str):
         sha = hashlib.sha256(bytes(data.encode()))
         hash = sha.digest()
@@ -76,5 +102,5 @@ class Hashing():
         a.update(data)
         return self.__Salt(a.finalize(),salt=self.salt)
         
-obj = Hashing()
-print(obj.PBKDF2_SHA256())
+    def PBKDF2_SHA256(self,data:bytes):
+        return self.__Salt_PBKDF(pbkdf2_sha256.hash(str(data.decode)))

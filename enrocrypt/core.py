@@ -1,4 +1,3 @@
-from typing import Any
 from enrocrypt.hashing import Hashing
 from enrocrypt.encryption import Encryption
 from enrocrypt.basic import Basic
@@ -13,8 +12,9 @@ class Core(Hashing,Encryption,Basic):
     }'''
     def __init__(self) -> None:
         self.salt = ''
-    def set_config(self,*args: Any):
-        configs = (args[0]['configs']['salt_file'])
+        self.byt = 512
+    def set_config(self,con:dict):
+        configs = (con['salt_file'])
         value = self.__Set_Salt(configs)
         return value
     def __str__(self) -> str:
@@ -26,10 +26,12 @@ class Core(Hashing,Encryption,Basic):
             self.salt = bytes(salts.encode())
             return True
         except FileNotFoundError:
-            return Warning("No Salt File Found At The Given Location Using Random Salt")
+            return print(Warning("No Salt File Found At The Given Location Using Random Salt"))
         else:
             return False
     def get_hash_object(self):
         hashing = Hashing()
-        hashing(bytes(self.salt.encode()))
+        if self.salt == "":
+            print(print(Warning("No Personalized Salt Loaded In The Memory, Using Random Salt")))
+        hashing(bytes(self.salt.encode()),self.byt)
         return hashing
