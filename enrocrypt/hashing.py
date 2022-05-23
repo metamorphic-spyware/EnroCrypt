@@ -75,7 +75,10 @@ class Hashing():
             salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
             salts.append(str(dataset[i]))
         salts.append(str(hashlib.sha256(uuid.uuid4().bytes).digest()).split("'")[1])
-        return base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+        salting = base64.standard_b64encode(bytes((str(base64.urlsafe_b64encode(bytes(''.join(salts).encode()))).split("'")[1]+str(base64.urlsafe_b64encode(base64.standard_b64encode((bytes(''.join(salts).encode()))))).split("'")[1]).encode()))
+        if len(salting) > self.byt:
+            salting = salting.decode()[0:self.byt]
+        return salting
 
     def SHA256(self,data:str):
         sha = hashlib.sha256(bytes(data.encode()))
