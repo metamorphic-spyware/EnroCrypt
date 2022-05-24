@@ -7,7 +7,7 @@ name: DevSkim
 
 on:
   push:
-    branches: [ main, passlib_addition ]
+    branches: [ main, passlib_addition, fixes]
   pull_request:
     branches: [ main ]
   schedule:

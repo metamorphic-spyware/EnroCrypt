@@ -1,7 +1,8 @@
-from enrocrypt import error
 import uuid, os
+from enrocrypt import error
 
 class Basic():
+    '''This Class Consists of all the basic functions that can be useful'''
     def __str__(self) -> str:
         return "This Class Has All the Basic Functions Of EnroCrypt"
     def seperator(self,data: str):
@@ -47,7 +48,7 @@ class Basic():
             in_ascii.append(int(in_int[i],16))
         for i,_ in enumerate(in_ascii):
             in_str.append(chr(in_ascii[i]))
-        return(in_str)
+        return in_str
 
     def Sign(self,sign:str):
         '''A Hint Of Upcomming Updates'''

@@ -30,6 +30,7 @@ class Core(Hashing,Encryption,Basic):
         else:
             return False
     def get_hash_object(self):
+        '''Returns A Hashing Class Object That Is Pre-Configured To Use Custom Salt If Any'''
         hashing = Hashing()
         if self.salt == "":
             print(print(Warning("No Personalized Salt Loaded In The Memory, Using Random Salt")))
