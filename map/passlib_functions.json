@@ -1,0 +1,74 @@
+{
+"passlib":{
+    "pbkdf2":{
+        "1":"pbkdf2_sha1",
+        "2":"pbkdf2_sha256",
+        "3":"pbkdf2_sha512",
+        "4": "cta_pbkdf2_sha1",
+        "5":"dlitz_pbkdf2_sha1",
+        "6":"grub_pbkdf2_sha512"
+    },
+    "argon2":{
+        "1":"argon2"
+    },
+    "bcrypt":{
+        "1":"bcrypt"
+    },
+    "cisco":{
+        "1":"cisco_pix",
+        "2":"cisco_asa",
+        "3":"cisco_type7"
+    },
+    "des_crypt":{
+        "1":"des_crypt",
+        "2":"bsdi_crypt",
+        "3":"bigcrypt",
+        "4":"crypt16"
+    },
+    "digests":{
+       "1":"create_hex_hash",
+       "2":"hex_md4",
+       "3":"hex_md5",
+       "4":"hex_sha1",
+       "5":"hex_sha256",
+       "6":"hex_sha512"
+    },
+    "django":{
+        "1":"django_salted_sha1",
+        "2":"django_salted_md5",
+        "3":"django_bcrypt",
+        "4":"django_pbkdf2_sha1",
+        "5":"django_pbkdf2_sha256",
+        "6":"django_argon2",
+        "7":"django_des_crypt",
+        "8":"django_disabled"
+    },
+    "fshp":{
+        "1":"fshp"
+    },
+    "ldap_digest":{
+        "1":"ldap_plaintext",
+        "2":"ldap_md5",
+        "3":"ldap_sha1",
+        "4":"ldap_salted_md5",
+        "5": "ldap_salted_sha1",
+        "6":"ldap_salted_sha256",
+        "7":"ldap_salted_sha512"
+    },
+    "mysql":{
+        "1":"mysql323",
+        "2":"mysq41"
+    },
+    "oracle":{
+        "1":"oracle10g",
+        "2":"oracle11g"
+    },
+    "windows":{
+        "1":"lmhash",
+        "2": "nthash",
+        "3":"bsd_nthash",
+        "4":"msdcc",
+        "5":"msdcc2"
+    }
+}
+}
